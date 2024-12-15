@@ -5,5 +5,5 @@
 
 #### example:
 ```shell
-docker run -dit --privileged -p 5432:5432 --name opengauss -e PASSWORD=Test@123 -e USER_NAME=test -e USER_PASSWORD=Test@123  opengauss-mate:latest  
+docker run -dit --privileged -p 5432:5432 --name opengauss -e PASSWORD=Test@123 -e USER_NAME=test -e USER_PASSWORD=Test@123 ttbb/opengauss:mate  
 ```
