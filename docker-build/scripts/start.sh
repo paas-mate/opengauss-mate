@@ -24,7 +24,7 @@ if [[ $? -ne 0 ]]; then
 fi
 echo "start openGauss successful"
 
-gsql -dpostgres -p5432 -c "CREATE USER $normal_user_name IDENTIFIED BY $normal_user_password;"
+gsql -dpostgres -p5432 -c "CREATE USER $normal_user_name IDENTIFIED BY '$normal_user_password';"
 gsql -dpostgres -p5432 -c "ALTER USER $normal_user_name SYSADMIN;"
 
 if [[ -n $CUSTOM_SQL ]];then
