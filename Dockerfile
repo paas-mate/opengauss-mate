@@ -1,7 +1,7 @@
-FROM ttbb/opengauss:nake
+FROM opengauss-mate:latest
 
 WORKDIR /opt/opengauss
 
 COPY docker-build /opt/opengauss/mate
 
-CMD ["/usr/bin/dumb-init", "bash", "-vx", "/opt/opengauss/mate/scripts/start.sh"]
+CMD ["/bin/bash", "-vx", "/opt/opengauss/mate/scripts/start.sh"]
