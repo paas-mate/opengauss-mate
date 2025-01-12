@@ -14,7 +14,7 @@ if [[ $? -ne 0 ]]; then
 fi
 
 echo "listen_addresses = '0.0.0.0'" >> /opt/gauss/data/single_node/postgresql.conf
-echo "host    all            all           0.0.0.0/0            sha256" >> /opt/opengauss/data/single_node/pg_hba.conf
+echo "host    all            all           0.0.0.0/0            sha256" >> /opt/gauss/data/single_node/pg_hba.conf
 
 echo "restart opengauss......"
 gs_ctl restart -D /opt/gauss/data/single_node -Z single_node
@@ -26,6 +26,16 @@ echo "start openGauss successful"
 
 gsql -dpostgres -p5432 -c "CREATE USER $normal_user_name IDENTIFIED BY '$normal_user_password';"
 gsql -dpostgres -p5432 -c "ALTER USER $normal_user_name SYSADMIN;"
+if [[ -n $CUSTOM_DATABASE ]];then
+  if [[ -n $CUSTOM_DATABASE_DBCOMPATIBILITY ]];then
+    gsql -dpostgres -p5432 -c "CREATE DATABASE ${CUSTOM_DATABASE} WITH DBCOMPATIBILITY = '${CUSTOM_DATABASE_DBCOMPATIBILITY}';"
+  else
+    gsql -dpostgres -p5432 -c "CREATE DATABASE ${CUSTOM_DATABASE};"
+  fi
+fi
+if [[ -n $CUSTOM_SCHEMA ]];then
+  gsql -d${CUSTOM_DATABASE} -p5432 -c "CREATE SCHEMA IF NOT EXISTS ${CUSTOM_SCHEMA};"
+fi
 
 if [[ -n $CUSTOM_SQL ]];then
   gsql -dpostgres -p5432 -c "$custom_sql"
