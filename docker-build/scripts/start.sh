@@ -1,5 +1,8 @@
 #/bin/bash
 
+# fix openGauss start failed cause SEMMNI too small
+sudo sysctl --system
+
 password=$PASSWORD
 normal_user_name=$USER_NAME
 normal_user_password=$USER_PASSWORD
